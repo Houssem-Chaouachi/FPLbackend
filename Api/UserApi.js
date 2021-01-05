@@ -44,36 +44,19 @@ router.post('/login', async(req,res)=>{
     }
 });
 //Register
-router.post('/register', (req, res) => {
-    let newPatient = new User({
-        nom: req.body.nom,
-        prenom: req.body.prenom,
-        email: req.body.email,
-        tel: req.body.tel,
-        datePoste: new Date().getDate(),
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword,
-        patients: []
-    });
-    const queryy = { email: newPatient.email }
-    User.findOne(queryy).then((user) => {
-        if (user) {
-            return res.json({ success: false, msg: 'User is already exist' });
-        }
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newPatient.password, salt, (err, hash) => {
-            if (err) {
-                res.json({ success: false, msg: 'Failed to register patient' });
-            } else {
-                newPatient.password = hash;
-                newPatient.save();
-                res.json({ success: true, msg: 'Patient registered' });
-            }
-        });
-    });
-});
+router.post('/register', async(req, res)=>{
+    const user = User(req.body);
+    const uniqueuser = await User.findOne({ email: req.body.email });
 
-})
+    if (uniqueuser) {
+        return res.status(400).send({ message: "email already in use" });
+    } else {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save();
+        res.send(user);
+    }
+});
 
 // reset Password
 

@@ -6,18 +6,18 @@ const patientScheama = new Scheama ({
         type: String,
         required: [true,'nom is requiered']
     },
-    prenom: {
-        type: String,
-        required:[true, 'prenom is required']
-    },
+    // prenom: {
+    //     type: String,
+    //     required:[true, 'prenom is required']
+    // },
     email: {
         type: String,
         required: [true, 'email is required']
     },  
-    tel: {
-        type: Number,
-        required: [true, 'phone number is required']
-    },
+    // tel: {
+    //     type: Number,
+    //     required: [true, 'phone number is required']
+    // },
     datePoste: {
         type:String,
         default:new Date().getDate()
@@ -26,10 +26,10 @@ const patientScheama = new Scheama ({
         type: String,
     required:[true, 'password is required']
     },
-    confirmPassword: {
-        type: String,
-        required: [ true, 'confirm your password']
-    },
+    // confirmPassword: {
+    //     type: String,
+    //     required: [ true, 'confirm your password']
+    // },
     
 
 });
