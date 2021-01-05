@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
 const user = require('../FPL-backend/Api/UserApi')
-const passport = require('passport')
+const passport = require('./config/passport')
 const bodyParser = require('body-parser')
 const db = require('../FPL-backend/db/Fpl-database')
 const cors = require('cors')
 const port = 3000
-require('./config/passport')(passport)
 
-app.use(passport.initialize());
-app.use(passport.session());
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}));
