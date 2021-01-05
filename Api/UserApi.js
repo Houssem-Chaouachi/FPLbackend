@@ -4,9 +4,9 @@ const User = require('../Models/UserSchema');
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const createAccountLimiter = require('../rateLimiter') 
 
-
-router.get('/',  passport.authenticate('bearer', { session: false }),  (req, res) => {
+router.get('/', createAccountLimiter, passport.authenticate('bearer', { session: false }),  (req, res) => {
     User.find({}).then((listUsers) => {
         res.send(listUsers);
     }
@@ -18,7 +18,7 @@ router.get('/:id',  passport.authenticate('bearer', { session: false }), async (
     res.send(patient);
 } );
 
-router.post('/', passport.authenticate('bearer', { session: false }), (req, res) => {
+router.post('/', createAccountLimiter, passport.authenticate('bearer', { session: false }), (req, res) => {
     // les promisse (then)  (recommender)
     User.create(req.body).then((createdUser) => {
         res.send(createdUser);
