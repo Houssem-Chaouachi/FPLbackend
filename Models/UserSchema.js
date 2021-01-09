@@ -14,10 +14,6 @@ const userScheama = new Scheama ({
         type: String,
          required: [true, 'password required' ]
     },
-    confirmPassword: {
-        type: String,
-        required: [ true, 'confirm your password']
-    },
     
 
 });

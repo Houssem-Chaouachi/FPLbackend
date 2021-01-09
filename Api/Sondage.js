@@ -7,26 +7,11 @@ const jwt = require('jsonwebtoken');
 const createAccountLimiter = require('../rateLimiter') 
 
 router.post('/create',  passport.authenticate('bearer', { session: false }), (req, res) => {
-    // les promisse (then)  (recommender)
+  
     Sondage.create(req.body).then((createdSondage) => {
         res.send(createdSondage);
     });
 });
-    // router.post(
-    //     '/create/:id',
-    //     passport.authenticate('bearer', { session: false }),
-    //     async (req, res) => {
-    //       const user = await User.findById(req.params.id);
-    //       const sondage = new Sondage(req.body);
-      
-    //       await sondage.save();
-      
-    //       await Sondage.findByIdAndUpdate(sondage._id, { user: user._id });
-      
-    //       res.send(sondage);
-    //       console.log(user);
-    //     }
-    //   );
 
 router.get('/', passport.authenticate('bearer', {session:false}),  async(req,res)=>{
     const sujet = await Sondage.find({});

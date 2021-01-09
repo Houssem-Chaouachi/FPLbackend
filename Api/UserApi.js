@@ -38,7 +38,6 @@ router.post('/register', async(req, res)=>{
     } else {
         const salt = await bcrypt.genSalt(10);
         user.password  = await bcrypt.hash(user.password, salt);
-        user.confirmPassword = await bcrypt.hash(user.confirmPassword, salt);
         await user.save();
         res.send(user);
     }
