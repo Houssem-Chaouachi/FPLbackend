@@ -6,7 +6,7 @@ const User = require('../Models/UserSchema');
 const jwt = require('jsonwebtoken');
 const createAccountLimiter = require('../rateLimiter') 
 
-router.post('/create', createAccountLimiter, passport.authenticate('bearer', { session: false }), (req, res) => {
+router.post('/create',  passport.authenticate('bearer', { session: false }), (req, res) => {
     // les promisse (then)  (recommender)
     Sondage.create(req.body).then((createdSondage) => {
         res.send(createdSondage);
@@ -28,7 +28,7 @@ router.post('/create', createAccountLimiter, passport.authenticate('bearer', { s
     //     }
     //   );
 
-router.get('/', async(req,res)=>{
+router.get('/', passport.authenticate('bearer', {session:false}),  async(req,res)=>{
     const sujet = await Sondage.find({});
     res.send(sujet);
 })
@@ -41,14 +41,15 @@ router.get('/:idSondage',  passport.authenticate('bearer', { session: false }), 
 } );
 
 // vote 
-router.put('/vote/:id',createAccountLimiter, passport.authenticate('bearer', { session:false}), async(req, res) =>{
+router.put('/vote/:id',createAccountLimiter, async(req, res) =>{
 const vote = await Sondage.findById(req.params.id);
 vote.choix =req.body.choix;
 vote.totale += 1;
-if(vote.choix == "oui") vote.oui +=1;
-else if(vote.choix == "non") vote.non +=1;
+if(vote.choix == 'oui') vote.oui +=1;
+else if(vote.choix == 'non') vote.non +=1;
  await vote.save();
  res.send({ message: 'vote réusite'})
+ 
 });
 
  module.exports = router
