@@ -1,39 +1,27 @@
 const mongoose = require('mongoose');
 const Scheama = mongoose.Schema;
 
-const patientScheama = new Scheama ({
-    nom: {
-        type: String,
-        required: [true,'nom is requiered']
-    },
-    // prenom: {
-    //     type: String,
-    //     required:[true, 'prenom is required']
-    // },
+const userScheama = new Scheama ({
+    name: {
+         type: String, 
+         required: [true, 'name is required' ]
+        },
     email: {
+         type: String, 
+         required:[ true, 'email is required']
+         },
+    password: { 
         type: String,
-        required: [true, 'email is required']
-    },  
-    // tel: {
-    //     type: Number,
-    //     required: [true, 'phone number is required']
-    // },
-    datePoste: {
-        type:String,
-        default:new Date().getDate()
+         required: [true, 'password required' ]
     },
-    password: {
+    confirmPassword: {
         type: String,
-    required:[true, 'password is required']
+        required: [ true, 'confirm your password']
     },
-    // confirmPassword: {
-    //     type: String,
-    //     required: [ true, 'confirm your password']
-    // },
     
 
 });
 
-const patientModel = mongoose.model('User',patientScheama)
+const patientModel = mongoose.model('User',userScheama)
 
 module.exports = patientModel

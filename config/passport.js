@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 passport.use(
   new BearerStrategy(async (token, done) => {
-    const tokenData = await jwt.verify(token, "secret");
+    const tokenData = await jwt.verify(token, "token");
 
     const user = await User.findOne({ _id: tokenData.data._id });
     if (!user) {
