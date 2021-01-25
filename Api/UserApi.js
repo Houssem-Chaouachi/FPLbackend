@@ -28,11 +28,11 @@ router.post('/login', async(req,res)=>{
      return res.status(401).send({ message: "wrong email or password" });   
     }
 });
-//Register
+// Register
 router.post('/register', async(req, res)=>{
     const user = User(req.body);
     const uniqueuser = await User.findOne({ email: req.body.email });
-
+     
     if (uniqueuser) {
         return res.status(400).send({ message: "email already in use" });
     } else {
@@ -43,12 +43,11 @@ router.post('/register', async(req, res)=>{
     }
 });
 
+
 // get all users
 router.get('/', async(req,res) => {
     const user = await User.find()
     res.send(user)
 })
-
-
 
 module.exports = router;
